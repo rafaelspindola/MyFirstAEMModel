@@ -1,0 +1,6 @@
+{
+  "mobile.resourceTypes": [
+    "trilha-03/components/page"
+  ],
+  "README": "Indicate which page resource types should display the mobile emulators."
+}
