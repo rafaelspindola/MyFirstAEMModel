@@ -1,11 +1,27 @@
-<div>
-  <h3>Component MyFirstModel</h3>
+<div style="text-align: center">
+    <h3>Component MyFirstModel</h3>
 
-  <sly data-sly-use.model="com.webjump.trilha03.core.models.MyFirstModelImpl"/>
+    <sly data-sly-use.model="com.webjump.trilha03.core.models.MyFirstModelImpl"/>
 
-  <ul>
-    <li>Client Name: ${model.clientName}</li>
-    <li>Number ID: ${model.numberID}</li>
-    <li>Is a new client?: ${model.isNewClient ? "Yes" : "No"} </li>
-  </ul>
+    <form action="/content/trilha-03/us/en/jcr:content/root/container/container/my_first_model"
+          method="post">
+        <label for="clientName">Client name:</label>
+        <input type="text" name="clientName" id="clientName" required><br>
+
+        <label for="numberID">Number ID:</label>
+        <input type="text" name="numberID" id="numberID" required><br>
+
+        <label for="isNewClient">Is a new client?</label>
+        <input type="checkbox" name="isNewClient" id="isNewClient"><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <ul style="list-style-type: none;">
+        <li>Client Name: ${model.clientName}</li>
+        <li>Number ID: ${model.numberID}</li>
+        <li>Is a new client?: ${model.isNewClient ? "Yes" : "No"}</li>
+    </ul>
+
+
 </div>
