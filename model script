@@ -1,0 +1,10 @@
+yo aem-application:aem-component \
+mavenAppsModuleName=ui.apps \
+componentParentPath=trilha-03/components \
+componentNodeName=my-first-model \
+componentName="MyFirstModel" \
+componentGroup="Webjump Trilha 03" \
+mavenBundleModuleName=core \
+javaRootPackageName=com.webjump.trilha03.core \
+javaModelRelativePackageName=models \
+javaModelClassName=MyFirstModel
