@@ -1,7 +1,11 @@
 package com.webjump.trilha03.core.servlets;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
+import org.apache.sling.api.resource.ModifiableValueMap;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
@@ -11,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
+import java.io.BufferedReader;
 import java.io.IOException;
 
 @Component(service = {Servlet.class})
@@ -31,5 +36,23 @@ public class MyFirstModelServlet extends SlingAllMethodsServlet {
     protected void doPost(final SlingHttpServletRequest req,
                           SlingHttpServletResponse resp) throws ServletException, IOException {
 
+        try {
+            Resource currentResource = req.getResource ();
+            ResourceResolver resourceResolver = req.getResourceResolver ();
+
+            BufferedReader reader = req.getReader ();
+            ObjectMapper objectMapper = new ObjectMapper ();
+            PayloadData payloadData = objectMapper.readValue(payloadData.toString(), PayloadData.class);
+
+            ModifiableValueMap properties = currentResource.adaptTo(ModifiableValueMap.class);
+            properties.put("clientName", payloadData.getClientName());
+            properties.put("numberID", payloadData.getNumberID());
+            properties.put("isNewClient", payloadData.getinsNewClient);
+
+            resourceResolver.commit ();
+        } catch (Exception e) {
+            logger.error ("Error in request {}", e.getMessage ());
+            resp.getWriter ().write ("Failed to save data.");
+        }
     }
 }
