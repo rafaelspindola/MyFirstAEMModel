@@ -11,18 +11,23 @@
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="granite/ui/components/coral/foundation/container">
                 <items jcr:primaryType="nt:unstructured">
-                    <text
+                    <clientName
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Text"
-                        name="./text"/>
-                    <checkbox
+                        fieldLabel="Client Name"
+                        name="./clientName"/>
+                    <numberID
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldLabel="Number ID"
+                            name="./numberID"/>
+                    <isNewClient
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
-                        text="Checkbox"
+                        text="Is a new client?"
                         uncheckedValue="false"
                         value="true"
-                        name="./checkbox"/>
+                        name="./isNewClient"/>
                     <checkboxType
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/foundation/form/hidden"

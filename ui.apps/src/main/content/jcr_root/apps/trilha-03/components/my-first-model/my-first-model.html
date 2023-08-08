@@ -1,10 +1,11 @@
 <div>
   <h3>Component MyFirstModel</h3>
 
-  <sly data-sly-use.model="com.webjump.trilha03.core.models.MyFirstModel"/>
+  <sly data-sly-use.model="com.webjump.trilha03.core.models.MyFirstModelImpl"/>
 
   <ul>
-    <li>Text: ${model.text}</li>
-    <li>Checkbox: ${model.checkbox ? "Checked!" : "Not Checked!"} </li>
+    <li>Client Name: ${model.clientName}</li>
+    <li>Number ID: ${model.numberID}</li>
+    <li>Is a new client?: ${model.isNewClient ? "Yes" : "No"} </li>
   </ul>
 </div>
