@@ -6,7 +6,7 @@ public class PayloadData {
 
     public String getClientName() {return clientName;}
 
-    public String getNumberID() {return numberID;}
+    public int getNumberID() {return numberID;}
 
     public Boolean getIsNewClient() {return isNewClient;}
 }

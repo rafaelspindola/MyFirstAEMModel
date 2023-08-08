@@ -1,6 +1,7 @@
 package com.webjump.trilha03.core.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.webjump.trilha03.core.payload.PayloadData;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.ModifiableValueMap;
@@ -42,12 +43,12 @@ public class MyFirstModelServlet extends SlingAllMethodsServlet {
 
             BufferedReader reader = req.getReader ();
             ObjectMapper objectMapper = new ObjectMapper ();
-            PayloadData payloadData = objectMapper.readValue(payloadData.toString(), PayloadData.class);
+            PayloadData payloadData = objectMapper.readValue(req.getReader (), PayloadData.class);
 
             ModifiableValueMap properties = currentResource.adaptTo(ModifiableValueMap.class);
             properties.put("clientName", payloadData.getClientName());
             properties.put("numberID", payloadData.getNumberID());
-            properties.put("isNewClient", payloadData.getinsNewClient);
+            properties.put("isNewClient", payloadData.getIsNewClient());
 
             resourceResolver.commit ();
         } catch (Exception e) {
