@@ -10,6 +10,6 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 public interface MyFirstModel {
     String getClientName();
-    int getNumberID();
+    String getCodeID();
     Boolean getIsNewClient();
 }

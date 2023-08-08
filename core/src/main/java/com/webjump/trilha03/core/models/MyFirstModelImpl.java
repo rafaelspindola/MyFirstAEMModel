@@ -11,7 +11,7 @@ public class MyFirstModelImpl {
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     protected String clientName;
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
-    protected int numberID;
+    protected String codeID;
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     protected Boolean isNewClient;
 
@@ -19,9 +19,7 @@ public class MyFirstModelImpl {
         return clientName;
     }
 
-    public int getNumberID() {
-        return numberID;
-    }
+    public String getCodeID() {return codeID;}
 
     public Boolean getIsNewClient() {
         return isNewClient;
