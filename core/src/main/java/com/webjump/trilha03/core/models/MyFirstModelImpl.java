@@ -24,4 +24,16 @@ public class MyFirstModelImpl {
     public Boolean getIsNewClient() {
         return isNewClient;
     }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public void setCodeID(String codeID) {
+        this.codeID = codeID;
+    }
+
+    public void setNewClient(Boolean newClient) {
+        isNewClient = newClient;
+    }
 }
