@@ -81,7 +81,7 @@ public class MyFirstServletTest {
         when(req.getReader()).thenReturn(new BufferedReader (new StringReader (jsonPayload)));
 
         // Executa o servlet
-        MyFirstModelServlet servlet = new MyFirstModelServlet();
+        MyFirstServlet servlet = new MyFirstServlet();
         servlet.doPost(req, resp);
 
         // Verificações
