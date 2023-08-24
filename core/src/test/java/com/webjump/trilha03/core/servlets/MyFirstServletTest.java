@@ -3,6 +3,8 @@ package com.webjump.trilha03.core.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webjump.trilha03.core.models.MyFirstModel;
+import com.webjump.trilha03.core.models.MyFirstModelImpl;
+import com.webjump.trilha03.core.services.MyFirstServiceImpl;
 import io.wcm.testing.mock.aem.junit5.AemContext;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.apache.sling.api.resource.ModifiableValueMap;
@@ -13,6 +15,7 @@ import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -44,51 +47,27 @@ public class MyFirstServletTest {
     private MockSlingHttpServletResponse resp;
     @Mock
     private MyFirstModel myFirstModel;
-    @Mock
-    private Resource currentResource;
-
-    @Mock
-    private ResourceResolver resourceResolver;
-
-    @Mock
-    private ModifiableValueMap valueMap;
-
-
-
-
-//    @BeforeEach
-//    void setup(AemContext context) {
-//        servlet = new MyFirstModelServlet ();
-//        MockitoAnnotations.openMocks (this);
-//
-//        req = context.request();
-//        resp = context.response();
-//    }
+    @InjectMocks
+    private MyFirstServiceImpl myFirstService;
 
 
     @Test
-    public void testDoPost() throws ServletException, IOException {
+    protected void testDoPost() throws ServletException, IOException {
         // Inicializa os mocks
         MockitoAnnotations.openMocks(this);
-
-        // Configuração dos mocks
-        when(req.getResource()).thenReturn(currentResource);
-        when(req.getResourceResolver()).thenReturn(resourceResolver);
-        when(currentResource.adaptTo(ModifiableValueMap.class)).thenReturn(valueMap);
 
         // Prepara o JSON de teste
         String jsonPayload = "{\"clientName\": \"Huawei\", \"codeID\": \"123456\", \"isNewClient\": true}";
         when(req.getReader()).thenReturn(new BufferedReader (new StringReader (jsonPayload)));
 
+
+        MyFirstModelImpl payloadData = objMapper.readValue(jsonPayload, MyFirstModelImpl.class);
+        myFirstService.saveClient (payloadData);
+
         // Executa o servlet
         MyFirstServlet servlet = new MyFirstServlet();
         servlet.doPost(req, resp);
 
-        // Verificações
-        verify(valueMap).put(eq("clientName"), eq("Huawei"));
-        verify(valueMap).put(eq("codeID"), eq("123456"));
-        verify(valueMap).put(eq("isNewClient"), eq(true));
-        verify(resourceResolver).commit();
         verify(resp).setStatus(HttpServletResponse.SC_OK);
     }
 

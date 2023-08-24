@@ -1,0 +1,54 @@
+package com.webjump.trilha03.core.services;
+
+import com.webjump.trilha03.core.models.MyFirstModelImpl;
+import org.apache.sling.api.resource.ModifiableValueMap;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
+
+@ExtendWith (MockitoExtension.class)
+public class MyFirstServiceTest {
+
+    @Mock
+    private Resource resource = mock (Resource.class);
+
+    @Mock
+    private ResourceResolver resourceResolver = mock (ResourceResolver.class);
+
+    @Mock
+    private ModifiableValueMap valueMap = mock (ModifiableValueMap.class);
+    @InjectMocks
+    private MyFirstServiceImpl myFirstService;
+    @Test
+    protected void testSaveClient() throws Exception {
+        // Initializes mocks
+        MockitoAnnotations.openMocks (this);
+
+        // Mocks resource, resourceResolver and ModifiableValueMap
+        when(resource.getResourceResolver()).thenReturn(resourceResolver);
+        when(resource.adaptTo(ModifiableValueMap.class)).thenReturn (valueMap);
+
+        //Payload
+        MyFirstModelImpl payloadData = new MyFirstModelImpl ();
+        payloadData.setClientName ("Huawei");
+        payloadData.setCodeID("123456");
+        payloadData.setNewClient(true);
+
+        // Execute service method
+        myFirstService.saveClient(payloadData);
+
+        // Verify business logic
+        verify (valueMap).put (eq ("clientName"), eq ("Huawei"));
+        verify (valueMap).put (eq ("codeID"), eq ("123456"));
+        verify (valueMap).put (eq ("isNewClient"), eq (true));
+        verify (resourceResolver).commit ();
+    }
+}

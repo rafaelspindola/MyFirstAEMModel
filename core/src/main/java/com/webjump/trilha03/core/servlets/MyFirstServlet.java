@@ -3,6 +3,7 @@ package com.webjump.trilha03.core.servlets;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webjump.trilha03.core.models.MyFirstModelImpl;
 import com.webjump.trilha03.core.services.MyFirstService;
+import com.webjump.trilha03.core.services.MyFirstServiceImpl;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.ModifiableValueMap;
@@ -32,7 +33,7 @@ public class MyFirstServlet extends SlingAllMethodsServlet {
     private static final Logger logger = LoggerFactory.getLogger(MyFirstServlet.class);
     private static final long serialVersionUID = 2L;
     @Reference
-    private MyFirstService myFirstService;
+    private MyFirstServiceImpl myFirstService;
     @Override
     protected void doGet(final SlingHttpServletRequest req,
                          final SlingHttpServletResponse resp) throws ServletException, IOException {
@@ -47,13 +48,13 @@ public class MyFirstServlet extends SlingAllMethodsServlet {
             ObjectMapper objectMapper = new ObjectMapper ();
             MyFirstModelImpl payloadData = objectMapper.readValue (body, MyFirstModelImpl.class);
 
-            myFirstService.saveClient (req.getResource (), payloadData);
+            myFirstService.saveClient (payloadData);
 
             resp.setStatus (HttpServletResponse.SC_OK);
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().write("Failed to save data.");
+            resp.getWriter().write("Error in input/output stream.");
         }
     }
 }

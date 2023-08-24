@@ -3,19 +3,27 @@ package com.webjump.trilha03.core.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webjump.trilha03.core.models.MyFirstModelImpl;
 import org.apache.sling.api.resource.ModifiableValueMap;
+import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.tika.io.IOUtils;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Component(service = {MyFirstService.class}, immediate = true)
+@Component(service = MyFirstServiceImpl.class, immediate = true)
 public class MyFirstServiceImpl implements MyFirstService {
+    @Reference
+    private Resource resource;
+    private static final Logger logger = LoggerFactory.getLogger (MyFirstServiceImpl.class);
     @Override
-    public void saveClient(Resource resource, MyFirstModelImpl payloadData) throws Exception {
+    public void saveClient(MyFirstModelImpl payloadData) throws IOException {
         try {
+            resource.getResourceType ();
             ResourceResolver resourceResolver = resource.getResourceResolver ();
 
             ModifiableValueMap properties = resource.adaptTo (ModifiableValueMap.class);
@@ -24,8 +32,8 @@ public class MyFirstServiceImpl implements MyFirstService {
             properties.put ("isNewClient", payloadData.getIsNewClient ());
 
             resourceResolver.commit ();
-        } catch (Exception e) {
-            throw new Exception ("Failed to save data.");
+        } catch (PersistenceException e) {
+            logger.error ("Error in request {}.", e.getMessage ());
         }
     }
 
