@@ -13,23 +13,9 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Designate(ocd=MyFirstScheduler.SchedulerConfig.class)
+@Designate(ocd= SchedulerConfig.class)
 @Component(service = Runnable.class)
 public class MyFirstScheduler implements Runnable {
-    @ObjectClassDefinition(name = "Webjump task")
-    public static @interface SchedulerConfig {
-
-        @AttributeDefinition(name = "Cron-job expression")
-        String scheduler_expression() default "*/30 * * * * ?";
-
-        @AttributeDefinition(name = "Concurrent task",
-                description = "Whether or not to schedule this task concurrently")
-        boolean scheduler_concurrent() default false;
-
-        @AttributeDefinition(name = "A parameter",
-                description = "Can be configured in /system/console/configMgr")
-        String myParameter() default "";
-    }
 
     private final Logger logger = LoggerFactory.getLogger(getClass ());
 
