@@ -18,13 +18,13 @@ import static org.mockito.Mockito.*;
 public class MyFirstServiceTest {
 
     @Mock
-    private Resource resource = mock (Resource.class);
+    private Resource resource;
 
     @Mock
-    private ResourceResolver resourceResolver = mock (ResourceResolver.class);
+    private ResourceResolver resourceResolver;
 
     @Mock
-    private ModifiableValueMap valueMap = mock (ModifiableValueMap.class);
+    private ModifiableValueMap valueMap;
     @InjectMocks
     private MyFirstServiceImpl myFirstService;
     @Test
@@ -42,7 +42,7 @@ public class MyFirstServiceTest {
         payloadData.setCodeID("123456");
         payloadData.setNewClient(true);
 
-        // Execute service method
+        // Executes service method
         myFirstService.saveClient(payloadData);
 
         // Verify business logic

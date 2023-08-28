@@ -1,5 +1,6 @@
 package com.webjump.trilha03.core.services;
 
+import com.adobe.xfa.service.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webjump.trilha03.core.models.MyFirstModelImpl;
 import org.apache.sling.api.resource.ModifiableValueMap;
@@ -9,13 +10,14 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.tika.io.IOUtils;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ServiceScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Component(service = MyFirstServiceImpl.class, immediate = true)
+@Component(service = {MyFirstServiceImpl.class}, immediate = true)
 public class MyFirstServiceImpl implements MyFirstService {
     @Reference
     private Resource resource;
@@ -23,7 +25,6 @@ public class MyFirstServiceImpl implements MyFirstService {
     @Override
     public void saveClient(MyFirstModelImpl payloadData) throws IOException {
         try {
-            resource.getResourceType ();
             ResourceResolver resourceResolver = resource.getResourceResolver ();
 
             ModifiableValueMap properties = resource.adaptTo (ModifiableValueMap.class);

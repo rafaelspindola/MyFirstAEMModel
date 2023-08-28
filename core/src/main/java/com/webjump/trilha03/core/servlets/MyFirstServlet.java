@@ -33,7 +33,7 @@ public class MyFirstServlet extends SlingAllMethodsServlet {
     private static final Logger logger = LoggerFactory.getLogger(MyFirstServlet.class);
     private static final long serialVersionUID = 2L;
     @Reference
-    private MyFirstServiceImpl myFirstService;
+    private MyFirstService myFirstService;
     @Override
     protected void doGet(final SlingHttpServletRequest req,
                          final SlingHttpServletResponse resp) throws ServletException, IOException {

@@ -4,6 +4,7 @@ package com.webjump.trilha03.core.servlets;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webjump.trilha03.core.models.MyFirstModel;
 import com.webjump.trilha03.core.models.MyFirstModelImpl;
+import com.webjump.trilha03.core.services.MyFirstService;
 import com.webjump.trilha03.core.services.MyFirstServiceImpl;
 import io.wcm.testing.mock.aem.junit5.AemContext;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
@@ -45,29 +46,26 @@ public class MyFirstServletTest {
     private MockSlingHttpServletRequest req;
     @Mock
     private MockSlingHttpServletResponse resp;
+
     @Mock
-    private MyFirstModel myFirstModel;
+    private MyFirstService myFirstService;
     @InjectMocks
-    private MyFirstServiceImpl myFirstService;
+    private MyFirstServlet myFirstServlet;
 
 
     @Test
     protected void testDoPost() throws ServletException, IOException {
-        // Inicializa os mocks
+        // Initializes mocks
         MockitoAnnotations.openMocks(this);
 
-        // Prepara o JSON de teste
+        // Prepares the test json
         String jsonPayload = "{\"clientName\": \"Huawei\", \"codeID\": \"123456\", \"isNewClient\": true}";
         when(req.getReader()).thenReturn(new BufferedReader (new StringReader (jsonPayload)));
 
+        // Executes servlet
+        myFirstServlet.doPost(req, resp);
 
-        MyFirstModelImpl payloadData = objMapper.readValue(jsonPayload, MyFirstModelImpl.class);
-        myFirstService.saveClient (payloadData);
-
-        // Executa o servlet
-        MyFirstServlet servlet = new MyFirstServlet();
-        servlet.doPost(req, resp);
-
+        // Checks response status
         verify(resp).setStatus(HttpServletResponse.SC_OK);
     }
 
