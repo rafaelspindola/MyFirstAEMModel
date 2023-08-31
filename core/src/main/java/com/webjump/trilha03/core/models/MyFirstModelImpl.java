@@ -15,6 +15,12 @@ public class MyFirstModelImpl {
     @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
     protected Boolean isNewClient;
 
+    public MyFirstModelImpl(String clientName, String codeID, Boolean isNewClient) {
+        this.clientName = clientName;
+        this.codeID = codeID;
+        this.isNewClient = isNewClient;
+    }
+
     public String getClientName() {
         return clientName;
     }
@@ -24,16 +30,5 @@ public class MyFirstModelImpl {
     public Boolean getIsNewClient() {
         return isNewClient;
     }
-
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
-    }
-
-    public void setCodeID(String codeID) {
-        this.codeID = codeID;
-    }
-
-    public void setNewClient(Boolean newClient) {
-        isNewClient = newClient;
-    }
+    
 }

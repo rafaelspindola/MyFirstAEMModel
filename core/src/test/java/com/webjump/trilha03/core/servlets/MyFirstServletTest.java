@@ -37,8 +37,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-@ExtendWith (MockitoExtension.class)
-
+@ExtendWith ({MockitoExtension.class, AemContextExtension.class})
 public class MyFirstServletTest {
 
     private static final ObjectMapper objMapper = new ObjectMapper ();

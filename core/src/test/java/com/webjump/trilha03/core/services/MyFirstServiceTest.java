@@ -1,6 +1,7 @@
 package com.webjump.trilha03.core.services;
 
 import com.webjump.trilha03.core.models.MyFirstModelImpl;
+import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -14,7 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-@ExtendWith (MockitoExtension.class)
+@ExtendWith ({MockitoExtension.class, AemContextExtension.class})
 public class MyFirstServiceTest {
 
     @Mock
@@ -37,10 +38,7 @@ public class MyFirstServiceTest {
         when(resource.adaptTo(ModifiableValueMap.class)).thenReturn (valueMap);
 
         //Payload
-        MyFirstModelImpl payloadData = new MyFirstModelImpl ();
-        payloadData.setClientName ("Huawei");
-        payloadData.setCodeID("123456");
-        payloadData.setNewClient(true);
+        MyFirstModelImpl payloadData = new MyFirstModelImpl ("Huawei", "123456", true);
 
         // Executes service method
         myFirstService.saveClient(payloadData);

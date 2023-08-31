@@ -1,5 +1,6 @@
 package com.webjump.trilha03.core.schedulers;
 
+import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.apache.sling.api.resource.*;
 import org.apache.sling.commons.scheduler.Scheduler;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-@ExtendWith (MockitoExtension.class)
+@ExtendWith ({MockitoExtension.class, AemContextExtension.class})
 public class MyFirstSchedulerTest {
     @Mock
     private TestLogger logger = TestLoggerFactory.getTestLogger (getClass ());
