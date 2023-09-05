@@ -7,7 +7,7 @@ import org.apache.sling.api.resource.ResourceResolverFactory;
 
 import java.util.HashMap;
 import java.util.Map;
-
+// This class provides utility methods to handle resource resolver issues regarding user access
 public final class ResolverUtils {
 
     private ResolverUtils() {}

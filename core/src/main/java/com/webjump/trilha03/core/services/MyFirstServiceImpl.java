@@ -25,15 +25,19 @@ public class MyFirstServiceImpl implements MyFirstService {
     @Override
     public void saveClient(MyFirstModelImpl payloadData) throws IOException {
         try {
+            // Get resource resolver to interact with content repository
             ResourceResolver resourceResolver = resource.getResourceResolver ();
 
+            // Adapt resource to ModifiableValueMap to modify it's properties and then change data
             ModifiableValueMap properties = resource.adaptTo (ModifiableValueMap.class);
             properties.put ("clientName", payloadData.getClientName ());
             properties.put ("codeID", payloadData.getCodeID ());
             properties.put ("isNewClient", payloadData.getIsNewClient ());
 
+            // Save changes to content repository
             resourceResolver.commit ();
         } catch (PersistenceException e) {
+            // If there's a problem with data persistence log an error message with details
             logger.error ("Error in request {}.", e.getMessage ());
         }
     }

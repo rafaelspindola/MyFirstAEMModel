@@ -61,7 +61,7 @@ public class MyFirstServletTest {
         String jsonPayload = "{\"clientName\": \"Huawei\", \"codeID\": \"123456\", \"isNewClient\": true}";
         when(req.getReader()).thenReturn(new BufferedReader (new StringReader (jsonPayload)));
 
-        // Executes servlet
+        // Executes the method under test
         myFirstServlet.doPost(req, resp);
 
         // Checks response status

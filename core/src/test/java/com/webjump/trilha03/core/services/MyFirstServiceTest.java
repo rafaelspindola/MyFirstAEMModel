@@ -37,10 +37,10 @@ public class MyFirstServiceTest {
         when(resource.getResourceResolver()).thenReturn(resourceResolver);
         when(resource.adaptTo(ModifiableValueMap.class)).thenReturn (valueMap);
 
-        //Payload
+        // Payload
         MyFirstModelImpl payloadData = new MyFirstModelImpl ("Huawei", "123456", true);
 
-        // Executes service method
+        // Call the method under test
         myFirstService.saveClient(payloadData);
 
         // Verify business logic

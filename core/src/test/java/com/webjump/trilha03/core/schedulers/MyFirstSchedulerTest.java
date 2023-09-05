@@ -38,16 +38,22 @@ public class MyFirstSchedulerTest {
 
     @Test
     void testRun() throws PersistenceException, LoginException {
-
+        // When getServiceResourceResolver is called with any argument, return the mocked resourceResolver
         when(resourceResolverFactory.getServiceResourceResolver(any())).thenReturn(resourceResolver);
+        // When getResource is called with any string argument, return the mocked resource
         when(resourceResolver.getResource(anyString())).thenReturn(resource);
+        // When adaptTo is called on the mocked resource, return the mocked valueMap
         when(resource.adaptTo(ModifiableValueMap.class)).thenReturn(valueMap);
 
+        // Call the method under test
         myFirstScheduler.run();
 
+        // Verify that the appropriate methods were called with the expected arguments
         verify(valueMap).put("clientName", "Huawei");
         verify(valueMap).put("codeID", "00456");
         verify(valueMap).put("isNewClient", true);
+
+        // Verify that the changes were saved
         verify(resourceResolver).commit();
     }
 }
