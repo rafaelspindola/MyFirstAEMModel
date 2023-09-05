@@ -1,0 +1,21 @@
+{
+  "my-first-model": {
+    "jcr:primaryType": "nt:unstructured",
+    "jcr:createdBy": "admin",
+    "codeID": "123456",
+    "jcr:lastModifiedBy": "admin",
+    "jcr:created": "Mon Aug 07 2023 21:31:41 GMT-0300",
+    "text": "Some default text",
+    "isNewClient": false,
+    "jcr:lastModified": "Thu Aug 10 2023 11:31:16 GMT-0300",
+    "clientName": "Intel",
+    "sling:resourceType": "trilha-03/components/my-first-model"
+  },
+  "cq:responsive": {
+    "jcr:primaryType": "nt:unstructured",
+    "default": {
+      "jcr:primaryType": "nt:unstructured",
+      "behavior": "none"
+    }
+  }
+}

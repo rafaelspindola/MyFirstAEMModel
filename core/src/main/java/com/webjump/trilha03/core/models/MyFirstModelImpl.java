@@ -1,19 +1,35 @@
 package com.webjump.trilha03.core.models;
 
-import org.apache.sling.api.resource.Resource;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.components.ComponentContext;
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
-import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
+import org.apache.sling.models.annotations.injectorspecific.*;
 
-@Model(adaptables = Resource.class)
-public class MyFirstModelImpl {
 
-    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
+@Model(adaptables = {SlingHttpServletRequest.class},
+        adapters = MyFirstModel.class,
+        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL,
+        resourceType = MyFirstModelImpl.RESOURCE_TYPE
+)
+public class MyFirstModelImpl implements MyFirstModel {
+
+    protected static final String RESOURCE_TYPE = "trilha-03/components/my-first-model";
+
+    @Self
+    private SlingHttpServletRequest request;
+
+    @ValueMapValue
     protected String clientName;
-    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
+    @ValueMapValue
     protected String codeID;
-    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
+    @ValueMapValue
     protected Boolean isNewClient;
+
+    public MyFirstModelImpl() {
+
+    }
 
     public MyFirstModelImpl(String clientName, String codeID, Boolean isNewClient) {
         this.clientName = clientName;
@@ -30,5 +46,5 @@ public class MyFirstModelImpl {
     public Boolean getIsNewClient() {
         return isNewClient;
     }
-    
+
 }

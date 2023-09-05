@@ -25,15 +25,10 @@ import static org.mockito.Mockito.*;
 @ExtendWith ({MockitoExtension.class, AemContextExtension.class})
 public class MyFirstSchedulerTest {
     @Mock
-    private TestLogger logger = TestLoggerFactory.getTestLogger (getClass ());
-    @Mock
     private Resource resource;
     @Mock
     private ModifiableValueMap valueMap;
-    @Mock
-    private Scheduler scheduler;
-    @Mock
-    private SchedulerConfig config;
+
     @Mock
     private ResourceResolver resourceResolver;
     @Mock
