@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.osgi.framework.Constants;
 
 import static junitx.framework.Assert.assertEquals;
+import static junitx.framework.Assert.assertNotEquals;
 
 @ExtendWith ({AemContextExtension.class, MockitoExtension.class})
 public class MyFirstModelImplTest {
@@ -59,5 +60,32 @@ public class MyFirstModelImplTest {
         boolean actual = myFirstModel.getIsNewClient ();
 
         assertEquals (expected, actual);
+    }
+
+    @Test
+    @DisplayName ("Should not match expected and actual clientName values.")
+    public void errorGetClientName() {
+        final String expected = "AMD";
+        String actual = myFirstModel.getClientName ();
+
+        assertNotEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName ("Should not match expected and actual codeID values.")
+    public void errorGetCodeID() {
+        final String expected = "456123";
+        String actual = myFirstModel.getCodeID ();
+
+        assertNotEquals (expected, actual);
+    }
+
+    @Test
+    @DisplayName ("Should not match expected and actual isNewClient values.")
+    public void errorGetIsNewClient() {
+        boolean expected = true;
+        boolean actual = myFirstModel.getIsNewClient ();
+
+        assertNotEquals (expected, actual);
     }
 }
