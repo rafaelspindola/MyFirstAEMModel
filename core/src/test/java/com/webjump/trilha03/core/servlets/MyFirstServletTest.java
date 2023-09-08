@@ -14,6 +14,7 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -31,10 +32,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static junitx.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith ({MockitoExtension.class, AemContextExtension.class})
@@ -53,6 +54,7 @@ public class MyFirstServletTest {
 
 
     @Test
+    @DisplayName ("Should test a successful post request")
     protected void testDoPost() throws ServletException, IOException {
         // Initializes mocks
         MockitoAnnotations.openMocks(this);
@@ -66,6 +68,15 @@ public class MyFirstServletTest {
 
         // Checks response status
         verify(resp).setStatus(HttpServletResponse.SC_OK);
+    }
+
+    @Test
+    @DisplayName ("Should throw an IOException")
+    protected void testDoPostIOException() throws ServletException, IOException {
+        MyFirstServlet myFirstServletMock = mock (MyFirstServlet.class);
+        doThrow (new IOException ("Test IOException")).when (myFirstServletMock).doPost (req, resp);
+
+        assertThrows (IOException.class, () -> myFirstServletMock.doPost (req, resp));
     }
 
 }

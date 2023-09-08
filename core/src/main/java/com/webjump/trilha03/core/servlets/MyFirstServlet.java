@@ -59,7 +59,7 @@ public class MyFirstServlet extends SlingAllMethodsServlet {
         } catch (IOException e) {
             // If there's an exception set the response status to 500 and write an error message
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().write("Error in input/output stream.");
+            resp.getWriter().write("Error in request.");
         }
     }
 }

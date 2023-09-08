@@ -3,8 +3,11 @@ package com.webjump.trilha03.core.services;
 import com.webjump.trilha03.core.models.MyFirstModelImpl;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.apache.sling.api.resource.ModifiableValueMap;
+import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,6 +15,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
+
+import static junit.framework.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
@@ -28,7 +35,9 @@ public class MyFirstServiceTest {
     private ModifiableValueMap valueMap;
     @InjectMocks
     private MyFirstServiceImpl myFirstService;
+
     @Test
+    @DisplayName ("Should save a client")
     protected void testSaveClient() throws Exception {
         // Initializes mocks
         MockitoAnnotations.openMocks (this);
@@ -48,5 +57,14 @@ public class MyFirstServiceTest {
         verify (valueMap).put (eq ("codeID"), eq ("123456"));
         verify (valueMap).put (eq ("isNewClient"), eq (true));
         verify (resourceResolver).commit ();
+    }
+
+    @Test
+    @DisplayName ("Should throw IOException")
+    public void testSaveClientWithIOException() throws IOException {
+        MyFirstServiceImpl myFirstServiceMock = mock (MyFirstServiceImpl.class);
+        doThrow (new IOException ("Test IOException")).when(myFirstServiceMock).saveClient (any ());
+
+        assertThrows(IOException.class, () -> myFirstServiceMock.saveClient (any ()));
     }
 }

@@ -39,7 +39,7 @@ public class MyFirstServiceImpl implements MyFirstService {
 
             logger.info ("Client data saved successfully for clientName: {}, codeID: {}",
                     payloadData.getClientName (), payloadData.getCodeID ());
-        } catch (PersistenceException e) {
+        } catch (IOException e) {
             // If there's a problem with data persistence log an error message with details
             logger.error ("Error in request {}.", e.getMessage ());
         }
