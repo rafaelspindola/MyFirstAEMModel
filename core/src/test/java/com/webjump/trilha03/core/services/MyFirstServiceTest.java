@@ -63,7 +63,8 @@ public class MyFirstServiceTest {
     @DisplayName ("Should throw IOException")
     public void testSaveClientWithIOException() throws PersistenceException {
         MyFirstServiceImpl myFirstServiceMock = mock (MyFirstServiceImpl.class);
-        doThrow (new IOException ("Test IOException")).when(myFirstServiceMock).saveClient (any ());
+        doThrow (new PersistenceException ("Test Persistence Exception"))
+                .when(myFirstServiceMock).saveClient (any ());
 
         assertThrows(PersistenceException.class, () -> myFirstServiceMock.saveClient (any ()));
     }
