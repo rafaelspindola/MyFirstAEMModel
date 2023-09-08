@@ -23,12 +23,12 @@ public class MyFirstServiceImpl implements MyFirstService {
     private Resource resource;
     private static final Logger logger = LoggerFactory.getLogger (MyFirstServiceImpl.class);
     @Override
-    public void saveClient(MyFirstModelImpl payloadData) throws IOException {
+    public void saveClient(MyFirstModelImpl payloadData) throws PersistenceException {
         try {
             // Get resource resolver to interact with content repository
             ResourceResolver resourceResolver = resource.getResourceResolver ();
 
-            // Adapt resource to ModifiableValueMap to modify it's properties and then change data
+            // Adapt resource to ModifiableValueMap to modify its properties and then change data
             ModifiableValueMap properties = resource.adaptTo (ModifiableValueMap.class);
             properties.put ("clientName", payloadData.getClientName ());
             properties.put ("codeID", payloadData.getCodeID ());
@@ -39,9 +39,9 @@ public class MyFirstServiceImpl implements MyFirstService {
 
             logger.info ("Client data saved successfully for clientName: {}, codeID: {}",
                     payloadData.getClientName (), payloadData.getCodeID ());
-        } catch (IOException e) {
+        } catch (PersistenceException e) {
             // If there's a problem with data persistence log an error message with details
-            logger.error ("Error in request {}.", e.getMessage ());
+            throw new PersistenceException ("Error in saving client data.");
         }
     }
 
